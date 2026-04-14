@@ -1,0 +1,90 @@
+Comandos utilizados, práctica laboratorio 3.1:
+Tareas Avanzadas y Administración de Servicios de Red
+
+Menú GRUB2 y recuperación de contraseña ROOT
+
+============================================
+
+# Ingresar al archivo de configuración de GRUB2:
+
+sudo nano /etc/default/grub
+
+# Buscar la línea:
+GRUB_TIMEOUT=5
+
+# Cambiar el valor por 20:
+GRUB_TIMEOUT=20
+
+# Guardar cambios:
+# Ctrl + O  → guardar
+# Enter     → confirmar
+# Ctrl + X  → salir
+
+# Regenerar la configuración de GRUB2:
+
+sudo grub2-mkconfig -o /boot/grub2/grub.cfg
+
+# Verificar que el cambio quedó aplicado:
+
+grep GRUB_TIMEOUT /etc/default/grub
+
+# Reiniciar el sistema para mostrar el menú de GRUB con 20 segundos:
+
+sudo reboot
+
+------------------------------------------------------------
+
+# MÉTODO DE RECUPERACIÓN DE CONTRASEÑA ROOT
+
+# Reiniciar la máquina.
+# Cuando aparezca el menú de GRUB, presionar la tecla "e" para editar la entrada de arranque.
+
+# Buscar la línea que inicia con:
+linux /vmlinuz-...
+
+# Ir al final de esa línea y agregar:
+rd.break
+
+# Quedará similar a esto:
+linux /vmlinuz-... ro ... rd.break
+
+# Luego presionar:
+Ctrl + X
+
+# El sistema iniciará en modo de emergencia.
+# Remontar el sistema de archivos con permisos de escritura:
+
+mount -o remount,rw /sysroot
+
+# Cambiar la raíz al sistema instalado:
+
+chroot /sysroot
+
+# Cambiar la contraseña de root:
+
+passwd root
+
+# Escribir la nueva contraseña y confirmarla.
+
+# Actualizar el contexto de SELinux (recomendado):
+
+touch /.autorelabel
+
+# Salir del entorno chroot:
+
+exit
+
+# Salir nuevamente para reiniciar:
+
+exit
+
+------------------------------------------------------------
+
+# COMPROBACIÓN DESPUÉS DE REINICIAR
+
+# Una vez iniciado el sistema, abrir terminal y probar acceso como root:
+
+su
+
+# Escribir la nueva contraseña de root.
+# Si entra correctamente, la recuperación fue exitosa.
