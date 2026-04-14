@@ -1,0 +1,102 @@
+Comandos utilizados, práctica laboratorio 3.2:
+Tareas Avanzadas y Administración de Servicios de Red
+
+SHELL SCRIPTING en ROCKY LINUX
+
+============================================
+
+# SCRIPT 1: BACKUP DE /home/usuario CON FECHA Y HORA
+
+# Crear el script:
+
+nano backup_home.sh
+
+# Dentro del archivo:
+
+#!/bin/bash
+
+FECHA=$(date +"%d-%m-%Y:%H:%M")
+tar -cvzf /home/$(whoami)/backup_home_$FECHA.tar.gz /home/$(whoami)
+
+# Guardar:
+# Ctrl + O → Enter → Ctrl + X
+
+# Dar permisos de ejecución:
+
+chmod +x backup_home.sh
+
+# Ejecutar el script:
+
+./backup_home.sh
+
+# Verificar que el archivo fue creado:
+
+ls -l /home/$(whoami)
+
+# EJEMPLO:
+# backup_home_20-04-2026:14:30.tar.gz
+
+------------------------------------------------------------
+
+# SCRIPT 2: GUARDAR RESULTADO DE IFCONFIG EN UN ARCHIVO
+
+# Crear el script:
+
+nano ifconfig.sh
+
+# Dentro del archivo:
+
+#!/bin/bash
+
+read -p "Ingrese el nombre del archivo: " nombre
+
+ifconfig > /home/$(whoami)/Desktop/"$nombre".txt
+
+echo "El archivo se ha guardado en el escritorio con el nombre $nombre.txt"
+
+# Guardar:
+# Ctrl + O → Enter → Ctrl + X
+
+# Dar permisos de ejecución:
+
+chmod +x ifconfig.sh
+
+# Ejecutar el script:
+
+./ifconfig.sh
+
+# Ingresar nombre (ejemplo):
+# Pruebaif
+
+# Verificar archivo creado:
+
+ls -l ~/Desktop
+
+# Ver contenido:
+
+cat ~/Desktop/Pruebaif.txt
+
+------------------------------------------------------------
+
+# NOTAS IMPORTANTES
+
+# $(whoami) obtiene el usuario actual automáticamente
+# date se usa para generar fecha y hora en el nombre
+# tar -cvzf crea un archivo comprimido .tar.gz
+# read permite pedir datos al usuario
+# ifconfig muestra la configuración de red
+
+------------------------------------------------------------
+
+# ERRORES COMUNES
+
+# Si ifconfig no funciona:
+sudo dnf install net-tools -y
+
+# Si no se ejecuta el script:
+chmod +x nombre_script.sh
+
+# Ejecutar siempre así:
+./nombre_script.sh
+
+------------------------------------------------------------
