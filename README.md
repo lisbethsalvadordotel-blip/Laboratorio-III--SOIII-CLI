@@ -5,4 +5,5 @@ Este repositorio corresponde a los comandos utilizados durante el desarrollo del
 1. Menú GRUB2, recuperación de CONTRASEÑA ROOT
 2. SHELL SCRIPTING en LINUX (ROCKY LINUX)
 3. Servicio SSH en LINUX (ROCKY) y WINDOWS
+   
 El enlace a la lista de reproducción de YouTube correspondiente a este laboratorio es el siguiente: https://www.youtube.com/playlist?list=PLyLZkciQ3TvsRBgPh7-ZKBNqUIcshAEKab
