@@ -1,0 +1,130 @@
+Comandos utilizados, práctica laboratorio 3.3:
+Tareas Avanzadas y Administración de Servicios de Red
+
+Servicio SSH en ROCKY y WINDOWS
+
+============================================
+
+# VALIDAR CONECTIVIDAD (PING)
+
+# Desde Windows (Host), probar conexión hacia la VM Linux:
+
+ping 192.168.1.100
+
+# Si responde → conexión OK
+
+------------------------------------------------------------
+
+# INSTALAR Y ACTIVAR SERVICIO SSH EN ROCKY
+
+sudo dnf install openssh-server -y
+
+# Iniciar servicio
+sudo systemctl start sshd
+
+# Habilitar al arranque
+sudo systemctl enable sshd
+
+# Verificar estado
+sudo systemctl status sshd
+
+------------------------------------------------------------
+
+# CONEXIÓN SSH DESDE WINDOWS
+
+# Desde CMD o PowerShell:
+
+ssh usuario@192.168.1.100
+
+# EJEMPLO:
+ssh lis@192.168.1.100
+
+# Aceptar conexión y escribir contraseña
+
+------------------------------------------------------------
+
+# VERIFICAR QUE ESTÁS DENTRO DEL SERVIDOR
+
+pwd
+ls
+
+------------------------------------------------------------
+
+# SALIR DE SSH
+
+exit
+
+------------------------------------------------------------
+
+# GENERAR LLAVES SSH EN WINDOWS
+
+ssh-keygen
+
+# Presionar ENTER en todo (ruta por defecto)
+# Dejar passphrase en blanco
+
+------------------------------------------------------------
+
+# COPIAR LLAVE PÚBLICA AL SERVIDOR (MÉTODO MANUAL)
+
+# En Windows, abrir la llave pública:
+
+notepad C:\Users\TU_USUARIO\.ssh\id_rsa.pub
+
+# Copiar todo el contenido
+
+------------------------------------------------------------
+
+# EN ROCKY LINUX
+
+cd ~
+mkdir -p ~/.ssh
+chmod 700 ~/.ssh
+
+nano ~/.ssh/authorized_keys
+
+# Pegar la llave pública
+
+# Guardar:
+# Ctrl + O → Enter → Ctrl + X
+
+# Ajustar permisos (MUY IMPORTANTE)
+
+chmod 600 ~/.ssh/authorized_keys
+
+------------------------------------------------------------
+
+# PROBAR CONEXIÓN SIN CONTRASEÑA
+
+# Desde Windows:
+
+ssh usuario@192.168.1.100
+
+# Si entra directamente → ÉXITO
+
+------------------------------------------------------------
+
+# COMANDOS CLAVE
+
+ssh usuario@ip        → conectar
+ssh-keygen            → generar llaves
+authorized_keys       → archivo de acceso
+chmod 700 ~/.ssh      → permisos carpeta
+chmod 600 archivo     → permisos llave
+
+------------------------------------------------------------
+
+# ERRORES COMUNES
+
+# No conecta por SSH:
+sudo systemctl status sshd
+
+# No hace ping:
+verificar modo Bridge
+
+# Pide contraseña todavía:
+verificar permisos:
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/authorized_keys
+
+------------------------------------------------------------
